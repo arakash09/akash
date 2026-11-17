@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="../../" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ataur Rahman Akash | Assistant Architect, HORIZON</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Preloader Overlay (Shown ONLY on first visit or page reload when preload.html exists) */
+    html.preloading-active,
+    html.preloading-active body {
+      overflow: hidden !important;
+    }
+    #site-preloader-frame {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 99999;
+      background: transparent;
+      transition: opacity 0.45s ease;
+    }
+    body.dark-theme #site-preloader-frame {
+      background: #111317;
+    }
+    #site-preloader-frame.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Colorful Font Awesome Icons inside Selected Works Card Badges */
+    .work-card-icon-badge i.work-card-fa-icon {
+      font-size: 21px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    }
+    .work-card-icon-badge .wc-icon-orange { color: #fb923c; }
+    .work-card-icon-badge .wc-icon-green  { color: #34d399; }
+    .work-card-icon-badge .wc-icon-blue   { color: #38bdf8; }
+    .work-card-icon-badge .wc-icon-purple { color: #c084fc; }
+    .work-card-icon-badge .wc-icon-pink   { color: #fb7185; }
+    .work-card-icon-badge .wc-icon-amber  { color: #fbbf24; }
+  </style>
+</head>
+<body>
+
+
+  <!-- Continuous Background Audio Element -->
+  <audio id="bg-audio" src="assets/audio.mp3" preload="auto" loop></audio>
+
+  <!-- Navigation Bar Slot (Loaded from nav.html via script.js) -->
+  <div id="nav-placeholder"></div>
+
+  <!-- =======================================================================
+       MAIN MULTI-VIEW CONTAINER: Home View (Canvas 1 + Canvas 2) & Subpage View
+       ======================================================================= -->
+  <main id="app-views">
+
+    <!-- VIEW 1: HOME LANDING & SELECTED WORKS -->
+    <div id="view-home">
+
+      <!-- ===================================================================
+           1ST CANVAS: LANDING PAGE HERO (PC & Mobile, Light & Dark Mode)
+           =================================================================== -->
+      <section class="hero-canvas" id="home">
+        <!-- Office Background (bg.png) + Light/Dark Atmospheric Overlay -->
+        <div class="hero-bg-layer" aria-hidden="true"></div>
+        <div class="hero-atmosphere-overlay" aria-hidden="true"></div>
+
+        <!-- Giant Backdrop Watermark Text "AKASH" -->
+        <div class="hero-akash-watermark" aria-hidden="true">AKASH</div>
+
+        <!-- Person Image (akash-bgless-professional.png) -->
+        <div class="hero-portrait-wrap">
+          <img
+            src="assets/akash-bgless-professional.png"
+            alt="Architect Ataur Rahman Akash"
+            class="hero-portrait-img"
+          />
+        </div>
+
+        <!-- Left Content Column (Desktop) / Bottom Centered Stack (Mobile) -->
+        <div class="hero-content-col">
+          <!-- Top Location Pill Badge (Desktop) -->
+          <div class="hero-top-pill">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L2 7v2h20V7L12 2zm-7 9v7H3v2h18v-2h-2v-7h-2v7h-4v-7h-2v7H9v-7H5z"/>
+            </svg>
+            <span>PORTFOLIO &bull; DHAKA, BANGLADESH</span>
+          </div>
+
+          <!-- Main Name Heading -->
+          <h1 class="hero-name-title">
+            <span class="first-name">Ataur Rahman</span>
+            <span class="nick-name">Akash</span>
+          </h1>
+
+          <!-- Subtitle Role & HORIZON Badge -->
+          <div class="hero-role-row">
+            <p class="hero-role-text">
+              <span class="role-light-word">Assistant</span>
+              <span class="role-bold-word">Architect,</span>
+            </p>
+            <span class="horizon-badge">HORIZON</span>
+          </div>
+
+          <!-- Specialty Continuous Left-to-Right Marquee -->
+          <div class="specialty-label">Specialty :</div>
+          <div class="specialty-pill-box">
+            <span class="spec-bracket">[</span>
+            <div class="specialty-marquee-viewport">
+              <div class="specialty-track">
+                <div class="specialty-group">
+                  <span class="spec-item">🏛️ Architecture</span>
+                  <span class="spec-divider">|</span>
+                  <span class="spec-item">🏗️ Engineering</span>
+                  <span class="spec-divider">|</span>
+                  <span class="spec-item">🛋️ Interior Design</span>
+                  <span class="spec-divider">|</span>
+                  <span class="spec-item">🏡 Miniature Model Making</span>
+                  <span class="spec-divider">|</span>
+                </div>
+                <div class="specialty-group" aria-hidden="true">
+                  <span class="spec-item">🏛️ Architecture</span>
+                  <span class="spec-divider">|</span>
+                  <span class="spec-item">🏗️ Engineering</span>
+                  <span class="spec-divider">|</span>
+                  <span class="spec-item">🛋️ Interior Design</span>
+                  <span class="spec-divider">|</span>
+                  <span class="spec-item">🏡 Miniature Model Making</span>
+                  <span class="spec-divider">|</span>
+                </div>
+              </div>
+            </div>
+            <span class="spec-bracket">]</span>
+          </div>
+
+          <!-- 3 Primary Action Pill Buttons -->
+          <div class="hero-cta-row">
+            <a href="#home" onclick="openResumeModal(event); return false;" class="cta-pill-btn btn-get-resume" data-action="open-resume">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M9 15h6"></path>
+                <path d="M9 11h6"></path>
+              </svg>
+              <span>Get Resume</span>
+            </a>
+
+            <a href="#works" onclick="navigateToSection('works'); return false;" class="cta-pill-btn btn-works">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 12 12 17 22 12"></polyline>
+                <polyline points="2 17 12 22 22 17"></polyline>
+              </svg>
+              <span>Works</span>
+            </a>
+
+            <a href="#footer-section" onclick="openContactModal(); return false;" class="cta-pill-btn btn-reach-me" data-action="open-contact">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+              </svg>
+              <span>Reach Me!</span>
+            </a>
+          </div>
+
+          <!-- Experience Glass Card -->
+          <div class="hero-exp-card">
+            <div>
+              <div class="exp-card-eyebrow">PORTFOLIO &bull; DHAKA, BANGLADESH</div>
+              <div class="exp-card-headline">
+                6+ Years Experience &bull; 23+ Projects<br />
+                in RAJUK, Cantonment &amp; Jalshiri
+              </div>
+            </div>
+            <a href="#works" onclick="navigateToPage('exp', 'all'); return false;" class="exp-card-arrow-btn" aria-label="Explore Professional Experiences" title="Explore RAJUK, Cantonment & Jalshiri Experiences">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Scroll Down Indicator to 2nd Canvas -->
+        <a href="#works" class="scroll-down-indicator">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+          <span>SCROLL DOWN</span>
+        </a>
+      </section>
+
+      <!-- ===================================================================
+           2ND CANVAS: SELECTED WORKS (works-light.png in Light, work-dark.png in Dark)
+           =================================================================== -->
+      <section class="works-canvas" id="works">
+        <div class="works-container">
+          <!-- Section Header -->
+          <div class="works-header-row">
+            <div>
+              <div class="works-eyebrow">INTERACTIVE PORTFOLIO GALLERY</div>
+              <h2 class="works-main-heading">Selected <span>Works</span></h2>
+              <p class="works-sub-instruction">
+                Point your mouse on any card from the 6 cards to expand it and close the other 5 cards.
+              </p>
+            </div>
+            <div class="works-header-actions">
+              <span class="hover-expand-hint">Hover to Expand</span>
+              <button type="button" class="subnames-open-btn" id="openActiveProjectBtn">
+                <span>Click Subnames to Open Page</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 6 Interactive Expandable Cards -->
+          <div class="works-accordion" id="worksAccordion">
+
+            <!-- CARD 1: 3D Visualization (Default Open) -->
+            <article class="work-card active" data-index="0">
+              <img src="assets/card1.jpg" alt="3D Visualization" class="work-card-bg" />
+              <div class="work-card-shade"></div>
+              <div class="work-card-icon-badge badge-arch">
+                <i class="fa-solid fa-cube work-card-fa-icon wc-icon-orange" aria-hidden="true"></i>
+              </div>
+              <div class="work-card-vertical-title">3D Visualization</div>
+              <div class="work-card-expanded-body">
+                <div class="work-card-cat">PHOTOREALISTIC RENDERING</div>
+                <button type="button" class="work-card-title-btn" data-subpage="3Dvis" onclick="event.stopPropagation(); navigateToPage('3Dvis', 'all');">
+                  <span>3D Visualization</span>
+                  <span>&rsaquo;</span>
+                </button>
+                <p class="work-card-desc">
+                  High-detail daylight &amp; twilight architectural visualizations crafted with SketchUp, Lumion &amp; Photoshop.
+                </p>
+                <div class="work-card-btn-row">
+                  <button type="button" class="work-btn-primary" data-subpage="3Dvis-ext" onclick="event.stopPropagation(); navigateToPage('3Dvis', 'exterior');">
+                    <span>Exterior &rsaquo;</span>
+                  </button>
+                  <button type="button" class="work-btn-secondary" data-subpage="3Dvis-int" onclick="event.stopPropagation(); navigateToPage('3Dvis', 'interior');">
+                    <span>Interior &rsaquo;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 2: Animation Walkthrough -->
+            <article class="work-card" data-index="1">
+              <img src="assets/card2.jpg" alt="Animation Walkthrough" class="work-card-bg" />
+              <div class="work-card-shade"></div>
+              <div class="work-card-icon-badge badge-land">
+                <i class="fa-solid fa-film work-card-fa-icon wc-icon-green" aria-hidden="true"></i>
+              </div>
+              <div class="work-card-vertical-title">Animation Walkthrough</div>
+              <div class="work-card-expanded-body">
+                <div class="work-card-cat">CINEMATIC FLYTHROUGH</div>
+                <button type="button" class="work-card-title-btn" data-subpage="AW" onclick="event.stopPropagation(); navigateToPage('AW', 'all');">
+                  <span>Animation Walkthrough</span>
+                  <span>&rsaquo;</span>
+                </button>
+                <p class="work-card-desc">
+                  Immersive 60fps architectural walkthrough videos with realistic foliage, lighting transitions, and human life.
+                </p>
+                <div class="work-card-btn-row">
+                  <button type="button" class="work-btn-primary" data-subpage="AW-ext" onclick="event.stopPropagation(); navigateToPage('AW', 'exterior');">
+                    <span>Exterior &rsaquo;</span>
+                  </button>
+                  <button type="button" class="work-btn-secondary" data-subpage="AW-int" onclick="event.stopPropagation(); navigateToPage('AW', 'interior');">
+                    <span>Interior &rsaquo;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 3: National Experience -->
+            <article class="work-card" data-index="2">
+              <img src="assets/card4.jpg" alt="National Experience" class="work-card-bg" />
+              <div class="work-card-shade"></div>
+              <div class="work-card-icon-badge badge-int">
+                <i class="fa-solid fa-building work-card-fa-icon wc-icon-blue" aria-hidden="true"></i>
+              </div>
+              <div class="work-card-vertical-title">National Experience</div>
+              <div class="work-card-expanded-body">
+                <div class="work-card-cat">HORIZON &bull; DHAKA, BANGLADESH</div>
+                <button type="button" class="work-card-title-btn" data-subpage="exp-nat" onclick="event.stopPropagation(); navigateToPage('exp', 'national');">
+                  <span>National Experience</span>
+                  <span>&rsaquo;</span>
+                </button>
+                <p class="work-card-desc">
+                  Contributed to 23+ residential &amp; commercial projects across RAJUK, Dhaka Cantonment, and Jalshiri Abashon.
+                </p>
+                <div class="work-card-btn-row">
+                  <button type="button" class="work-btn-primary" data-subpage="exp-rajuk" onclick="event.stopPropagation(); navigateToPage('exp', 'national');">
+                    <span>RAJUK &amp; Jalshiri &rsaquo;</span>
+                  </button>
+                  <button type="button" class="work-btn-secondary" data-subpage="exp-cant" onclick="event.stopPropagation(); navigateToPage('exp', 'national');">
+                    <span>Cantonment Projects &rsaquo;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 4: International Experience -->
+            <article class="work-card" data-index="3">
+              <img src="assets/card3.jpg" alt="International Experience" class="work-card-bg" />
+              <div class="work-card-shade"></div>
+              <div class="work-card-icon-badge badge-urb">
+                <i class="fa-solid fa-globe work-card-fa-icon wc-icon-purple" aria-hidden="true"></i>
+              </div>
+              <div class="work-card-vertical-title">International Experience</div>
+              <div class="work-card-expanded-body">
+                <div class="work-card-cat">FIVERR &amp; UPWORK GLOBAL</div>
+                <button type="button" class="work-card-title-btn" data-subpage="exp-int" onclick="event.stopPropagation(); navigateToPage('exp', 'international');">
+                  <span>International Experience</span>
+                  <span>&rsaquo;</span>
+                </button>
+                <p class="work-card-desc">
+                  Global freelance architectural design, 2D drafting, 3D modeling, and walkthrough delivery for international clients.
+                </p>
+                <div class="work-card-btn-row">
+                  <button type="button" class="work-btn-primary" data-subpage="exp-fiverr" onclick="event.stopPropagation(); navigateToPage('exp', 'international');">
+                    <span>Fiverr &amp; Upwork &rsaquo;</span>
+                  </button>
+                  <button type="button" class="work-btn-secondary" data-subpage="exp-global" onclick="event.stopPropagation(); navigateToPage('exp', 'international');">
+                    <span>Global Clients &rsaquo;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 5: Studio -->
+            <article class="work-card" data-index="4">
+              <img src="assets/card5.jpg" alt="Studio" class="work-card-bg" />
+              <div class="work-card-shade"></div>
+              <div class="work-card-icon-badge badge-stu">
+                <i class="fa-solid fa-compass-drafting work-card-fa-icon wc-icon-pink" aria-hidden="true"></i>
+              </div>
+              <div class="work-card-vertical-title">Studio</div>
+              <div class="work-card-expanded-body">
+                <div class="work-card-cat">DRAFTING &amp; CONCEPT DESIGN</div>
+                <button type="button" class="work-card-title-btn" data-subpage="studio" onclick="event.stopPropagation(); navigateToPage('studio', 'all');">
+                  <span>Studio</span>
+                  <span>&rsaquo;</span>
+                </button>
+                <p class="work-card-desc">
+                  Comprehensive AutoCAD 2D working drawings, floor plans, structural detailing, and B.Sc. studio design sheets.
+                </p>
+                <div class="work-card-btn-row">
+                  <button type="button" class="work-btn-primary" data-subpage="studio-wd" onclick="event.stopPropagation(); navigateToPage('studio', 'all');">
+                    <span>Working Drawings &rsaquo;</span>
+                  </button>
+                  <button type="button" class="work-btn-secondary" data-subpage="studio-dd" onclick="event.stopPropagation(); navigateToPage('studio', 'all');">
+                    <span>Design Development &rsaquo;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 6: Model Making -->
+            <article class="work-card" data-index="5">
+              <img src="assets/card6.jpg" alt="Model Making" class="work-card-bg" />
+              <div class="work-card-shade"></div>
+              <div class="work-card-icon-badge badge-con">
+                <i class="fa-solid fa-building-wheat work-card-fa-icon wc-icon-amber" aria-hidden="true"></i>
+              </div>
+              <div class="work-card-vertical-title">Model Making</div>
+              <div class="work-card-expanded-body">
+                <div class="work-card-cat">PHYSICAL SCALE CRAFT</div>
+                <button type="button" class="work-card-title-btn" data-subpage="model" onclick="event.stopPropagation(); navigateToPage('model', 'all');">
+                  <span>Model Making</span>
+                  <span>&rsaquo;</span>
+                </button>
+                <p class="work-card-desc">
+                  Precision physical miniature architectural models, contour site topography, and illuminated presentation maquettes.
+                </p>
+                <div class="work-card-btn-row">
+                  <button type="button" class="work-btn-primary" data-subpage="model-min" onclick="event.stopPropagation(); navigateToPage('model', 'all');">
+                    <span>Miniature Models &rsaquo;</span>
+                  </button>
+                  <button type="button" class="work-btn-secondary" data-subpage="model-urb" onclick="event.stopPropagation(); navigateToPage('model', 'all');">
+                    <span>Urban Scale &rsaquo;</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Hidden compatibility shortcuts for quick category jump -->
+          <div class="hidden-view" aria-hidden="true">
+            <button type="button" onclick="navigateToPage('3Dvis', 'all')">Modern Living Spaces →</button>
+            <button type="button" onclick="navigateToPage('AW', 'all')">Landscape Design →</button>
+            <button type="button" onclick="navigateToPage('3Dvis', 'interior')">Interior Design →</button>
+            <button type="button" onclick="navigateToPage('exp', 'national')">Urban Designs →</button>
+            <button type="button" onclick="navigateToPage('studio', 'all')">Studio →</button>
+            <button type="button" onclick="navigateToPage('model', 'all')">Concepts →</button>
+            <button type="button" onclick="navigateToPage('3Dvis', 'all')">View Project →</button>
+            <button type="button" onclick="navigateToPage('exp', 'all')">Explore More</button>
+          </div>
+
+          <!-- Bottom Scroll Down to Footer -->
+          <div class="works-scroll-footer">
+            <div class="works-scroll-line-row">
+              <span class="works-scroll-line"></span>
+              <a href="#footer-section" class="works-scroll-btn" style="text-decoration:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+                <span>SCROLL DOWN</span>
+              </a>
+              <span class="works-scroll-line"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ===================================================================
+         VIEW 2: LINKED PORTFOLIO ROUTES
+         Rendered dynamically with sub-category filters when navigated
+         =================================================================== -->
+    <section id="view-subpage" class="subpage-canvas hidden-view">
+      <div class="subpage-inner">
+        <div class="subpage-top-bar">
+          <div>
+            <div class="subpage-breadcrumb">
+              <button type="button" class="subpage-back-btn" onclick="navigateToPage('home')">
+                <span>&larr; Back to Home</span>
+              </button>
+              <span>/</span>
+              <span id="subpage-filename" class="subpage-file-badge">3Dvisualization</span>
+            </div>
+            <h1 id="subpage-title" class="subpage-heading">3D Visualization</h1>
+            <p id="subpage-subtitle" class="subpage-desc">
+              Photorealistic Exterior &amp; Interior 3D architectural renders created with SketchUp, Lumion &amp; Adobe Photoshop.
+            </p>
+          </div>
+          <div id="subpage-filter-bar" class="subpage-filters"></div>
+        </div>
+
+        <div id="subpage-projects-grid" class="subpage-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Slot (Loaded from footer.html via script.js) -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Interactive Modal Dialog for Resume (resume.pdf), Direct Contact Card & Terms -->
+  <div class="portfolio-modal-backdrop" id="portfolioModal" aria-hidden="true">
+    <div class="portfolio-modal-card" role="dialog" aria-modal="true">
+      <button type="button" class="modal-close-btn" id="portfolioModalClose" aria-label="Close modal">&times;</button>
+      <div id="portfolioModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Fixed Left-Bottom Social Icons (Facebook, Email, WhatsApp) -->
+  <div class="hero-social-rail" aria-label="Quick Social Links">
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn soc-fb" title="Facebook" aria-label="Facebook">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.12 5.32H17V2.14A26.11 26.11 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V6.65c0-1.05.29-1.73 1.76-1.73z"/></svg>
+    </a>
+    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=archarakash09@gmail.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn soc-mail" title="Email: archarakash09@gmail.com" aria-label="Send Email via Gmail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+    </a>
+    <a href="https://wa.me/8801792985959" target="_blank" rel="noopener noreferrer" class="social-circle-btn soc-wa" title="WhatsApp: +88-01792985959" aria-label="WhatsApp">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.82 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.61-2.92-1.26-4.82-4.21-4.97-4.4-.15-.19-1.19-1.58-1.19-3.01 0-1.43.75-2.13 1.01-2.42.26-.29.58-.36.77-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2.01.89 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.15.46.12.63-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.65-.15.27.1 1.69.8 1.98.94.29.15.48.22.56.34.08.12.08.7-.16 1.38z"/></svg>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
