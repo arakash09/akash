@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loading...</title>
+    <style>
+      :root {
+        --bg: #fdfcfb;
+        --fg: #14161b;
+        --circle: #3b4248;
+        --shadow: rgba(0, 0, 0, 0.28);
+        --seam: rgba(0, 0, 0, 0.06);
+        --title-size: clamp(2rem, 4.2vw, 5.5rem);
+      }
+      html.dark {
+        --bg: #0b0d12;
+        --fg: #f4f5f7;
+        --circle: #9aa5b4;
+        --shadow: rgba(0, 0, 0, 0.65);
+        --seam: rgba(255, 255, 255, 0.08);
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background: transparent;
+      }
+
+      /* Two seamless background halves that part from the middle */
+      .bg-half {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 50.2%;
+        background: var(--bg);
+        z-index: 1;
+        will-change: transform;
+      }
+      .bg-left {
+        left: 0;
+      }
+      .bg-right {
+        right: 0;
+      }
+
+      .title {
+        position: absolute;
+        z-index: 2;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        color: var(--fg);
+        font-family: "Plus Jakarta Sans", "Montserrat", Arial, sans-serif;
+        font-size: var(--title-size);
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        opacity: 0;
+        transform: scale(0.84);
+        animation: title-in 0.6s 0.12s ease-out forwards;
+      }
+      .title span {
+        display: inline-block;
+      }
+      .title.sweep span {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        white-space: pre;
+      }
+      .title .glyph {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        transition: opacity 0.42s ease, transform 0.42s ease, filter 0.42s ease;
+      }
+      .title .slash-glyph {
+        opacity: 0;
+        transform: scale(0.7);
+      }
+      .title .slash.is-slash .letter-a {
+        opacity: 0;
+        transform: scale(0.7);
+        filter: blur(4px);
+      }
+      .title .slash.is-slash .slash-glyph {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .sweep-circle {
+        position: fixed;
+        z-index: 4;
+        isolation: isolate;
+        border-radius: 50%;
+        background: var(--circle);
+        opacity: 0;
+        transform: scale(0.65);
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+      .sweep-circle::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: -25%;
+        top: 82%;
+        width: 150%;
+        height: 35%;
+        border-radius: 50%;
+        background: var(--shadow);
+        filter: blur(7px);
+      }
+
+      @keyframes title-in {
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+    <script>
+      (function () {
+        let isDark = localStorage.getItem("theme") === "dark";
+        try {
+          if (window.parent && window.parent !== window) {
+            isDark = window.parent.document.body.classList.contains("dark-theme") || isDark;
+          }
+        } catch (e) {}
+        if (isDark) document.documentElement.classList.add("dark");
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="bg-half bg-left" id="bgLeft"></div>
+    <div class="bg-half bg-right" id="bgRight"></div>
+
+    <script>
+      const bgLeft = document.getElementById("bgLeft");
+      const bgRight = document.getElementById("bgRight");
+
+      // Collect core site assets during the preloading motion
+      const assetsToCollect = [
+        "style.css",
+        "script.js",
+        "nav.html",
+        "footer.html",
+        "assets/bg.png",
+        "assets/akash-bgless-professional.png",
+        "assets/works-light.png",
+        "assets/work-dark.png",
+        "assets/footer-bg.png",
+        "assets/card1.jpg",
+        "assets/card2.jpg",
+        "assets/card3.jpg",
+        "assets/card4.jpg",
+        "assets/card5.jpg",
+        "assets/card6.jpg"
+      ];
+
+      const collectAssets = Promise.allSettled(
+        assetsToCollect.map((url) =>
+          /\.(png|jpe?g|webp|gif)$/i.test(url)
+            ? new Promise((res) => {
+                const img = new Image();
+                img.onload = img.onerror = res;
+                img.src = url;
+              })
+            : fetch(url, { cache: "force-cache" }).catch(() => {})
+        )
+      );
+
+      // Build title characters
+      const title = document.createElement("h1");
+      title.className = "title";
+      [..."ARCHITECTURE"].forEach((ch, i) => {
+        const span = document.createElement("span");
+        span.textContent = ch;
+        span.className = i === 0 ? "slash" : "letter";
+        title.appendChild(span);
+      });
+      document.body.appendChild(title);
+
+      // 1. Lock character positions and morph 'A' -> '/'
+      setTimeout(() => {
+        const slash = title.querySelector(".slash");
+        const titleRect = title.getBoundingClientRect();
+        [...title.querySelectorAll("span")].forEach((el) => {
+          const r = el.getBoundingClientRect();
+          el.style.left = `${r.left - titleRect.left}px`;
+          el.style.top = `${r.top - titleRect.top}px`;
+          el.style.width = `${r.width}px`;
+          el.style.height = `${r.height}px`;
+        });
+        title.classList.add("sweep");
+
+        const letterA = document.createElement("span");
+        letterA.className = "glyph letter-a";
+        letterA.textContent = "A";
+
+        const slashGlyph = document.createElement("span");
+        slashGlyph.className = "glyph slash-glyph";
+        slashGlyph.textContent = "/";
+
+        slash.replaceChildren(letterA, slashGlyph);
+        requestAnimationFrame(() => slash.classList.add("is-slash"));
+
+        // 2. Sweep '/' across the word and clear letters
+        setTimeout(() => {
+          const slashRect = slash.getBoundingClientRect();
+          const glyphRect = slashGlyph.getBoundingClientRect();
+          const finalSlashW = glyphRect.width * 1.5;
+          const circleSize = glyphRect.height * 1.5 * 0.75;
+          const pairGap = Math.max(8, finalSlashW * 0.18);
+          const groupWidth = finalSlashW + pairGap + circleSize;
+
+          // Position '/' on the left side of center so the circle sits beside it on the right
+          const targetX = window.innerWidth / 2 - groupWidth / 2 + finalSlashW / 2;
+          const deltaX = targetX - (slashRect.left + slashRect.width / 2);
+          const deltaY = window.innerHeight / 2 - (glyphRect.top + glyphRect.height / 2);
+          const duration = 850;
+          const speed = Math.abs(deltaX) / duration;
+
+          const sweepAnims = [
+            slash.animate(
+              [{ transform: "translate(0, 0)" }, { transform: `translate(${deltaX}px, ${deltaY}px)` }],
+              { duration, easing: "linear", fill: "forwards" }
+            ),
+            slashGlyph.animate(
+              [{ transform: "scale(1)" }, { transform: "scale(1.5)" }],
+              { duration, easing: "linear", fill: "forwards" }
+            )
+          ];
+
+          title.querySelectorAll(".letter").forEach((letter) => {
+            const rect = letter.getBoundingClientRect();
+            const gap = Math.max(0, rect.left - slashRect.right);
+            const meetDist = gap / 2;
+            const time =
+              speed === 0
+                ? gap / 0.2
+                : meetDist <= Math.abs(deltaX)
+                  ? meetDist / speed
+                  : duration + (gap - 2 * Math.abs(deltaX)) / speed;
+            const travel =
+              speed === 0
+                ? gap
+                : Math.min(gap, Math.abs(deltaX) + speed * Math.max(0, time - duration));
+            const fadeAt = Math.max(0, time - 210);
+
+            const anim = letter.animate(
+              [
+                { transform: "translateX(0)", opacity: 1, offset: 0 },
+                { transform: `translateX(${-speed * fadeAt}px)`, opacity: 1, offset: time ? fadeAt / time : 0 },
+                { transform: `translateX(${-travel}px) scale(0.7)`, opacity: 0, filter: "blur(3px)", offset: 1 }
+              ],
+              { duration: Math.max(1, time), easing: "linear", fill: "forwards" }
+            );
+            anim.onfinish = () => letter.remove();
+            sweepAnims.push(anim);
+          });
+
+          // 3. Appear circle beside '/', hold a brief pause, then crossover & part the screen from the middle
+          Promise.all(sweepAnims.map((a) => a.finished)).then(() => {
+            const bounds = slashGlyph.getBoundingClientRect();
+            const diameter = bounds.height * 0.75;
+            const circle = document.createElement("div");
+            circle.className = "sweep-circle";
+            circle.style.width = `${diameter}px`;
+            circle.style.height = `${diameter}px`;
+            circle.style.left = `${bounds.right + pairGap}px`;
+            circle.style.top = `${bounds.top + bounds.height / 2 - diameter / 2}px`;
+            document.body.appendChild(circle);
+
+            // Pop the circle in beside the slash
+            const circleAppear = circle.animate(
+              [
+                { opacity: 0, transform: "scale(0.6)" },
+                { opacity: 1, transform: "scale(1)" }
+              ],
+              { duration: 240, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+            );
+
+            circleAppear.finished.then(() => {
+              // Brief pause while '/' and the circle sit side-by-side in the center
+              setTimeout(() => {
+                const exitDuration = 1050;
+                const easing = "cubic-bezier(0.65, 0, 0.35, 1)";
+                const circleBounds = circle.getBoundingClientRect();
+
+                // Circle crosses LEFT (past '/') and exits with the left background half
+                const circleLeftTravel = -(circleBounds.right + diameter + 24);
+                // Slash crosses RIGHT (past the circle) and exits with the right background half
+                const slashRightTravel = window.innerWidth - bounds.left + bounds.width + 24;
+
+                Promise.all([
+                  bgLeft.animate(
+                    [{ transform: "translateX(0)" }, { transform: "translateX(-100%)" }],
+                    { duration: exitDuration, easing, fill: "forwards" }
+                  ).finished,
+                  bgRight.animate(
+                    [{ transform: "translateX(0)" }, { transform: "translateX(100%)" }],
+                    { duration: exitDuration, easing, fill: "forwards" }
+                  ).finished,
+                  circle.animate(
+                    [
+                      { transform: "translateX(0) scale(1)", opacity: 1 },
+                      { transform: `translateX(${circleLeftTravel}px) scale(1)`, opacity: 0.95 }
+                    ],
+                    { duration: exitDuration, easing, fill: "forwards" }
+                  ).finished,
+                  slash.animate(
+                    [
+                      { transform: `translate(${deltaX}px, ${deltaY}px)`, opacity: 1 },
+                      { transform: `translate(${deltaX + slashRightTravel}px, ${deltaY}px)`, opacity: 0.95 }
+                    ],
+                    { duration: exitDuration, easing, fill: "forwards" }
+                  ).finished,
+                  collectAssets
+                ]).then(() => {
+                  if (window.parent !== window) {
+                    window.parent.postMessage("preload-complete", "*");
+                  } else {
+                    bgLeft.remove();
+                    bgRight.remove();
+                    circle.remove();
+                    title.remove();
+                  }
+                });
+              }, 420); // Moment of pause before crossover
+            });
+          });
+        }, 420);
+      }, 800);
+    </script>
+  </body>
+</html>

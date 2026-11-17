@@ -1,0 +1,453 @@
+<!-- footer.html - Footer Component with Integrated Styles & Complete Links -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<style>
+  .site-footer {
+    position: relative;
+    width: 100%;
+    background-color: #03151d;
+    background-image: url('assets/footer-bg.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #f3f4f8;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    padding: 58px 6% 32px 6%;
+    overflow: hidden;
+    border-top: 1px solid rgba(56, 232, 255, 0.28);
+  }
+
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(2, 18, 26, 0.30) 0%, rgba(2, 14, 20, 0.45) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .footer-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  .footer-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.78fr) minmax(0, 1.25fr);
+    gap: 48px;
+    align-items: start;
+    padding-bottom: 38px;
+    border-bottom: 1.5px solid rgba(56, 232, 255, 0.58);
+    box-shadow: 0 1px 12px rgba(0, 229, 255, 0.22);
+  }
+
+  .footer-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .footer-ar-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, #ffb84d 0%, #f56a00 70%, #c44100 100%);
+    border: 2px solid rgba(255, 220, 165, 0.85);
+    box-shadow: 0 0 22px rgba(255, 128, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.18rem;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  .footer-brand-text h3 {
+    margin: 0 0 3px 0;
+    font-size: 1.48rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .footer-brand-text h3 span {
+    color: #ff6a14;
+  }
+
+  .footer-brand-text p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #d5d9e2;
+    font-weight: 500;
+  }
+
+  .footer-bio-desc {
+    margin: 0 0 20px 0;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: #d8dce6;
+    max-width: 460px;
+  }
+
+  .footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    color: #eef0f6;
+  }
+
+  .footer-contact-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .footer-icon-pin { color: #ff7b1a; }
+  .footer-icon-phone { color: #22c55e; }
+  .footer-icon-mail { color: #00d4ff; }
+
+  .footer-contact-list a {
+    color: #eef0f6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-contact-list a:hover {
+    color: #38e8ff;
+  }
+
+  .footer-col-heading {
+    font-size: 1.02rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    margin: 6px 0 20px 0;
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  .footer-col-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 46px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #ff7b00, #ffae42);
+  }
+
+  .footer-quick-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-quick-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #eaedf5;
+    text-decoration: none;
+    font-size: 0.96rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .footer-quick-links a .quick-fa-icon {
+    width: 18px;
+    text-align: center;
+    font-size: 0.96rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .footer-quick-links a:hover .quick-fa-icon {
+    transform: scale(1.1);
+  }
+
+  .q-icon-home    { color: #fb923c; }
+  .q-icon-resume  { color: #818cf8; }
+  .q-icon-contact { color: #38e8ff; }
+
+  .footer-quick-links a:hover {
+    color: #38e8ff;
+    transform: translateX(4px);
+  }
+
+  .footer-works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px 26px;
+    min-width: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-col-bio, .footer-col-links, .footer-col-works { min-width: 0; }
+
+  .footer-works-grid li { min-width: 0; }
+
+  .footer-works-grid a {
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    gap: 10px;
+    color: #eaedf5 !important;
+    text-decoration: none;
+    font-size: 0.94rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .footer-works-grid a:hover {
+    color: #fb923c !important;
+    transform: translateX(4px);
+  }
+
+  /* Direct Solid Font Awesome Work Icons */
+  .work-fa-icon {
+    width: 18px;
+    text-align: center;
+    font-size: 0.96rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .footer-works-grid a:hover .work-fa-icon {
+    transform: scale(1.1);
+  }
+
+  .w-icon-orange { color: #fb923c; }
+  .w-icon-green  { color: #34d399; }
+  .w-icon-blue   { color: #38bdf8; }
+  .w-icon-purple { color: #c084fc; }
+  .w-icon-pink   { color: #fb7185; }
+  .w-icon-amber  { color: #fbbf24; }
+
+  .footer-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: #d1d5e0;
+  }
+
+  .footer-legal-links a {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .footer-legal-links a:hover {
+    color: #38e8ff;
+  }
+
+  .back-to-top-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: rgba(6, 32, 44, 0.72);
+    border: 1.5px solid #4ef2ff;
+    box-shadow: 0 0 18px rgba(56, 232, 255, 0.48), inset 0 0 10px rgba(56, 232, 255, 0.16);
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .back-to-top-btn:hover {
+    background: rgba(0, 180, 216, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 0 26px rgba(56, 232, 255, 0.75);
+  }
+
+  @media (max-width: 980px) {
+    .site-footer {
+      padding: 48px 22px 32px 22px;
+    }
+    .footer-main-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .footer-works-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer-works-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-bottom-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<footer class="site-footer" id="footer-section">
+  <div class="footer-inner">
+    <div class="footer-main-grid">
+      <!-- Column 1: Architect Profile & Contact -->
+      <div class="footer-col-bio">
+        <div class="footer-brand-row">
+          <div class="footer-ar-badge">AR</div>
+          <div class="footer-brand-text">
+            <h3>Ataur Rahman <span>Akash</span></h3>
+            <p>Assistant Architect, HORIZON &bull; IDEB ID: 68269</p>
+          </div>
+        </div>
+        <p class="footer-bio-desc">
+          Dedicated architectural professional with 6+ years of practical experience across 23+ projects in RAJUK, Cantonment, and Jalshiri areas, plus international visualization on Fiverr &amp; Upwork.
+        </p>
+        <ul class="footer-contact-list">
+          <li>
+            <span class="footer-contact-icon footer-icon-pin">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+            </span>
+            <span>House # 05, Ave # 01, Block-A, Chandrima Model Town, Mohammadpur, Dhaka</span>
+          </li>
+          <li>
+            <span class="footer-contact-icon footer-icon-phone">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
+            </span>
+            <a href="tel:+8801792985959">+88-01792985959</a>
+          </li>
+          <li>
+            <span class="footer-contact-icon footer-icon-mail">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </span>
+            <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=archarakash09@gmail.com" target="_blank" rel="noopener noreferrer">archarakash09@gmail.com</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col-links">
+        <h4 class="footer-col-heading">QUICK LINKS:</h4>
+        <ul class="footer-quick-links">
+          <li>
+            <a href="#home" onclick="if (window.navigateToPage) { navigateToPage('home'); return false; }" data-nav="home">
+              <i class="fa-solid fa-house quick-fa-icon q-icon-home" aria-hidden="true"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="#resume" onclick="openResumeModal(event); return false;" data-action="open-resume">
+              <i class="fa-solid fa-file-pdf quick-fa-icon q-icon-resume" aria-hidden="true"></i>
+              <span>Resume (resume.pdf)</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contact" onclick="openContactModal(); return false;" data-action="open-contact">
+              <i class="fa-solid fa-address-card quick-fa-icon q-icon-contact" aria-hidden="true"></i>
+              <span>Contact</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Works -->
+      <div class="footer-col-works">
+        <h4 class="footer-col-heading">WORKS:</h4>
+        <ul class="footer-works-grid">
+          <li>
+            <a href="3Dvisualization" onclick="if (window.navigateToPage) { navigateToPage('3Dvis', 'all'); return false; }" data-card-select="0">
+              <i class="fa-solid fa-cube work-fa-icon w-icon-orange" aria-hidden="true"></i>
+              <span>3D Visualization</span>
+            </a>
+          </li>
+          <li>
+            <a href="Animation_Walkthrough" onclick="if (window.navigateToPage) { navigateToPage('AW', 'all'); return false; }" data-card-select="1">
+              <i class="fa-solid fa-film work-fa-icon w-icon-green" aria-hidden="true"></i>
+              <span>Animation walkthrough</span>
+            </a>
+          </li>
+          <li>
+            <a href="experience/national" onclick="if (window.navigateToPage) { navigateToPage('exp', 'national'); return false; }" data-card-select="2">
+              <i class="fa-solid fa-building work-fa-icon w-icon-blue" aria-hidden="true"></i>
+              <span>National Experience</span>
+            </a>
+          </li>
+          <li>
+            <a href="experience/international" onclick="if (window.navigateToPage) { navigateToPage('exp', 'international'); return false; }" data-card-select="3">
+              <i class="fa-solid fa-globe work-fa-icon w-icon-purple" aria-hidden="true"></i>
+              <span>International Experience</span>
+            </a>
+          </li>
+          <li>
+            <a href="studio" onclick="if (window.navigateToPage) { navigateToPage('studio', 'all'); return false; }" data-card-select="4">
+              <i class="fa-solid fa-compass-drafting work-fa-icon w-icon-pink" aria-hidden="true"></i>
+              <span>Studio</span>
+            </a>
+          </li>
+          <li>
+            <a href="miniature_models" onclick="if (window.navigateToPage) { navigateToPage('model', 'all'); return false; }" data-card-select="5">
+              <i class="fa-solid fa-building-wheat work-fa-icon w-icon-amber" aria-hidden="true"></i>
+              <span>Model Making</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Legal & Back to Top -->
+    <div class="footer-bottom-bar">
+      <div class="footer-legal-links">
+        <a href="#terms" onclick="openTermsModal(); return false;" data-action="open-terms">Terms and Condition</a>
+        <span>&bull;</span>
+        <span>Copyright &copy; 2026 AR. Akash. All rights reserved.</span>
+      </div>
+      <button type="button" class="back-to-top-btn" id="backToTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <span>Back to the top</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5"></path>
+          <path d="m5 12 7-7 7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</footer>
